@@ -4,10 +4,10 @@
     ViewData["Title"] = "Որոնում";
 }
 
-<form method="post" id="form">
+    <form method="post" id="form">
 
 
-    @*<div class="card-header">
+        @*<div class="card-header">
             <h5 style="color:red">Հարգելի դիմումատու`</h5> <h5> Դուք կարող եք հետևել, արդյոք ընդգրկված եք 2019թ. հոկտեմբեր-նոյեմբեր ամիսներին
             Կենտրոնական ընտրական հանձնաժողովի կողմից կազմակերպված ընտրությունների անցկացման մասնագիտական դասընթացներին:</h5>
 
@@ -18,147 +18,167 @@
         </div>*@
 
 
-    <div class="card-header">
-        <h5>Ընտրությունների անցկացման մասնագիտական դասընթացներ</h5>
-        <div class="card-header-actions">
-            <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true">
-                <i class="icon-arrow-up"></i>
-            </a>
-        </div>
-    </div>
-
-
-    <div class="card">
-        <div class="card-body row">
-            <div class="m-3 p-3 w-100">
-                <div class="row margin-top-20">
-                    <div class="col-3">
-                        @*<label class="text-info">Անուն</label>*@
-                        <input class="form-control" type="text" asp-for="Input.FirstName" placeholder="անուն">
-                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-                    </div>
-                    <div class="col-3">
-                        @*<label class="text-info" asp-for="Input.LastName"></label>*@
-                        <input class="form-control" type="text" asp-for="Input.LastName" placeholder="ազգանուն">
-                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                    </div>
-                    <div class="col-3">
-                        @*<label class="text-info" asp-for="Input.Passport"></label>*@
-                        <input class="form-control" type="text" asp-for="Input.Passport" placeholder="ա.հ.փ.">
-                        <span asp-validation-for="Input.Passport" class="text-danger"></span>
-                    </div>
-                    <div class="col-3">
-                        <button style="margin-left: 4rem;" class="btn btn-primary text-white"><i class="cil-sync"></i> Որոնել</button>
-                    </div>
-                </div>
-                <br />
-                <div class="row margin-top-20">
-                    <div class="col-12">
-                        <h6 style="color:green">*Անուն և Ազգանուն դաշտերը ենթակա են պարտադիր լրացման </h6>
-                        <h6 style="color:red">*Որոնման տվյալներում "և" տառի առկայության դեպքում լրացնել "եվ" տառերի համակցությունը: </h6>
-                    </div>
-                </div>
-
-
+        <div class="card-header">
+            <h5>Ընտրությունների անցկացման մասնագիտական դասընթացներ</h5>
+            <div class="card-header-actions">
+                <a class="card-header-action btn-minimize" href="#" data-toggle="collapse" data-target="#collapseSearch" aria-expanded="true">
+                    <i class="icon-arrow-up"></i>
+                </a>
             </div>
         </div>
-    </div>
-</form>
 
-@if (Model.ResultList != null)
-{
-    <div class="card">
-        <div class="card-header">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            <center style="color:dodgerblue"> Անուն </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue">  Հասցե </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Դասընթաց </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Միավոր </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Վկայական </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Ուժի մեջ է մինչև </center>
-                        </th>
-                    </tr>
+        <div class="card">
+            <div class="card-body row">
+                <div class="m-3 p-3 w-100">
+                    <div class="row margin-top-20">
+                        <div class="col-3">
+                            @*<label class="text-info">Անուն</label>*@
+                            <input class="form-control" type="text" asp-for="Input.FirstName" placeholder="անուն">
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            @*<label class="text-info" asp-for="Input.LastName"></label>*@
+                            <input class="form-control" type="text" asp-for="Input.LastName" placeholder="ազգանուն">
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            @*<label class="text-info" asp-for="Input.Passport"></label>*@
+                            <input class="form-control" type="text" asp-for="Input.Passport" placeholder="ա.հ.փ.">
+                            <span asp-validation-for="Input.Passport" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <a class="btn btn-danger text-white" onclick="Reset()">Մաքրել</a>
+                            <button class="btn btn-primary text-white"><i class="cil-sync"></i> Որոնել</button>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row margin-top-20">
+                        <div class="col-12">
+                            <h6 style="color:green">*Անուն և Ազգանուն դաշտերը ենթակա են պարտադիր լրացման </h6>
+                            <h6 style="color:red">*Որոնման տվյալներում "և" տառի առկայության դեպքում լրացնել "եվ" տառերի համակցությունը: </h6>
+                        </div>
+                    </div>
 
 
-                    @if (Model.ResultList.Count == 0)
-                    {
-                        <h5 style="color:red">*Որոնման արդյունքում տվյալներ չգտնվեց</h5>
-                    }
-                    @if (Model.ResultList.Count == 1)
-                    {
-                        @foreach (var item in Model.ResultList)
-                        {
-
-                            <tr>
-                                <td>
-                                    <center>  @Html.DisplayFor(modelItem => item.FullName) </center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.Address)</center>
-                                </td>
-
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.TrainingCenter)</center>
-                                </td>
-                                <td>
-                                    <center>   @Html.DisplayFor(modelItem => item.Points)</center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.CertificateNumber)</center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.Date)</center>
-                                </td>
-                            </tr>
-                        }
-                    }
-                    @if (Model.ResultList.Count > 1)
-                    {
-                        <h6 style="color:orange">*Որոնման արդյունքում գտնվեց մեկից ավելի տվյալ,  ստույգ տեղեկատվություն ստանալու համար խնդրհեմ ներմուծեք նաև անձը հաստատող փաստաթղթի համարը </h6>
-
-                        @foreach (var item in Model.ResultList)
-                        {
-                            <tr>
-                                <td>
-                                    <center>  @Html.DisplayFor(modelItem => item.FullName) </center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.Address)</center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.TrainingCenter)</center>
-                                </td>
-                                <td>
-                                    <center>   @Html.DisplayFor(modelItem => item.Points)</center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.CertificateNumber)</center>
-                                </td>
-                                <td>
-                                    <center>    @Html.DisplayFor(modelItem => item.Date)</center>
-                                </td>
-                            </tr>
-                        }
-                    }
-                </thead>
-            </table>
+                </div>
+            </div>
         </div>
-    </div>
-}
 
+        @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
+        {
+            @if (Model.ResultList != null)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <center style="color:dodgerblue"> Անուն </center>
+                                    </th>
+                                    <th>
+                                        <center style="color:dodgerblue">  Հասցե </center>
+                                    </th>
+                                    <th>
+                                        <center style="color:dodgerblue"> Դասընթաց </center>
+                                    </th>
+                                    <th>
+                                        <center style="color:dodgerblue"> Միավոր </center>
+                                    </th>
+                                    <th>
+                                        <center style="color:dodgerblue"> Վկայական </center>
+                                    </th>
+                                    <th>
+                                        <center style="color:dodgerblue"> Ուժի մեջ է մինչև </center>
+                                    </th>
+                                </tr>
+
+
+                                @if (Model.ResultList.Count == 0)
+                                {
+                                    <h5 style="color:red">*Որոնման արդյունքում տվյալներ չգտնվեց</h5>
+                                }
+                                @if (Model.ResultList.Count == 1)
+                                {
+                                    @foreach (var item in Model.ResultList)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                <center>  @Html.DisplayFor(modelItem => item.FullName) </center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.Address)</center>
+                                            </td>
+
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.TrainingCenter)</center>
+                                            </td>
+                                            <td>
+                                                <center>   @Html.DisplayFor(modelItem => item.Points)</center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.CertificateNumber)</center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.Date)</center>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                @if (Model.ResultList.Count > 1)
+                                {
+                                    <h6 style="color:orange">*Որոնման արդյունքում գտնվեց մեկից ավելի տվյալ,  ստույգ տեղեկատվություն ստանալու համար խնդրհեմ ներմուծեք նաև անձը հաստատող փաստաթղթի համարը </h6>
+
+                                    @foreach (var item in Model.ResultList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <center>  @Html.DisplayFor(modelItem => item.FullName) </center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.Address)</center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.TrainingCenter)</center>
+                                            </td>
+                                            <td>
+                                                <center>   @Html.DisplayFor(modelItem => item.Points)</center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.CertificateNumber)</center>
+                                            </td>
+                                            <td>
+                                                <center>    @Html.DisplayFor(modelItem => item.Date)</center>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            }
+        }
+
+
+
+
+
+
+
+
+        @section scripts{
+            <script>
+                function Reset() {
+                    $("#Input_FirstName").val(null);
+                    $("#Input_LastName").val(null);
+                    $("#Input_Passport").val(null);
+                    $("form").submit();
+                }
+            </script>
+        }
+    </form>
 
 
 

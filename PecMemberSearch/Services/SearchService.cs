@@ -17,12 +17,10 @@ namespace PecMemberSearch.Services
 
       public  List<ApplicantsViewModel> GetResultWithOutPassport(string firstName, string lastName)
         {
-            List<Applicant> searchApplicant = _content.Applicant.Where(p => (p.ApplicantFirstName == firstName && p.ApplicantLastName == lastName)).ToList();
+            List<Applicant> searchApplicant = _content.Applicant.Where(p => (p.ApplicantFirstName.Contains(firstName) && p.ApplicantLastName.Contains(lastName))).ToList();
 
 
-
-
-            List<OldCerteficate> searchFromAllCitizens = _content.OldCerteficate.Where(p => (p.LastName == lastName && p.FirstName == firstName)).ToList();
+            List<OldCerteficate> searchFromAllCitizens = _content.OldCerteficate.Where(p => (p.LastName.Contains(lastName) && p.FirstName.Contains(firstName))).ToList();
 
 
             List<ApplicantsViewModel> searchApplicantsViewModel = new List<ApplicantsViewModel>();
@@ -101,10 +99,10 @@ namespace PecMemberSearch.Services
 
       public List<ApplicantsViewModel> GetResultWithPassport(string firstName, string lastName, string passport)
         {
-            List<Applicant> searchApplicant = _content.Applicant.Where(p => (p.ApplicantFirstName == firstName && p.ApplicantLastName == lastName && p.PassportNumber == passport)).ToList();
+            List<Applicant> searchApplicant = _content.Applicant.Where(p => (p.ApplicantFirstName.Contains(firstName) && p.ApplicantLastName.Contains(lastName) && p.PassportNumber == passport)).ToList();
 
             //List<OldCerteficate> searchFromAllCitizens = cont.OldCerteficate.Where(p => (p.FirstName == firstName && p.LastName == lastName && p.Passport == passport)).ToList();
-            List<OldCerteficate> searchFromAllCitizens = _content.OldCerteficate.Where(p => (p.LastName == lastName && p.FirstName == firstName && p.Passport == passport)).ToList();
+            List<OldCerteficate> searchFromAllCitizens = _content.OldCerteficate.Where(p => (p.LastName.Contains(lastName) && p.FirstName.Contains(firstName) && p.Passport == passport)).ToList();
 
             List<ApplicantsViewModel> searchApplicantsViewModel = new List<ApplicantsViewModel>();
 
