@@ -31,6 +31,9 @@ namespace PecMemberSearch
             services.AddDbContext<SearchContext>(options =>
                      options.UseSqlServer(Configuration.GetConnectionString("cecsystemsDatabase")));
 
+            services.AddDbContext<NewSearchContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("newcecsystemsDatabase")));
+
             services.AddTransient<ISearchService, SearchService>();
 
             services.AddRazorPages();
