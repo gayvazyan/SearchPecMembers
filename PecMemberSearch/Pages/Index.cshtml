@@ -80,8 +80,8 @@
                 </div>
             </div>
         </div>
-        @if(!String.IsNullOrEmpty(Model.ErrorMassage))
-    {
+        @*@if(!String.IsNullOrEmpty(Model.ErrorMassage))
+    {*@
          @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
         {
             @if (Model.ResultList != null)
@@ -178,7 +178,7 @@
                 </div>
             }
         }
-    }
+    @*}*@
 
              @section scripts{
             <script>
@@ -191,11 +191,11 @@
             </script>
 
           <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        <script>
+        @*<script>
             function onSubmit(token) {
                 document.getElementById("form").submit();
             }
-        </script>
+        </script>*@
         }
     </form>
 

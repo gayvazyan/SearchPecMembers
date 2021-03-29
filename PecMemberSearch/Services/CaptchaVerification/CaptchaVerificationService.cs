@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PecMemberSearch.Services.CaptchaVerification
 {
-    public class CaptchaVerificationService
+    public class CaptchaVerificationService : ICaptchaVerificationService
     {
         private CaptchaSettings captchaSettings;
         private ILogger<CaptchaVerificationService> logger;

@@ -13,17 +13,14 @@ namespace PecMemberSearch.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ILogger<IndexModel> _logger;
         private readonly ISearchService _searchService;
-        private readonly CaptchaVerificationService _verificationService;
+        private readonly ICaptchaVerificationService _verificationService;
         private CaptchaSettings _captchaSettings;
 
-        public IndexModel(ILogger<IndexModel> logger, 
-                          ISearchService searchService,
-                          CaptchaVerificationService verificationService,
+        public IndexModel(ISearchService searchService,
+                          ICaptchaVerificationService verificationService,
                           IOptions<CaptchaSettings> captchaSettings)
         {
-            _logger = logger;
             _searchService = searchService;
             _verificationService = verificationService;
             _captchaSettings = captchaSettings.Value;
@@ -66,23 +63,17 @@ namespace PecMemberSearch.Pages
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var firstName = Input.FirstName;
-            var lastName = Input.LastName;
-            var passport = Input.Passport;
-
-
-
             var requestIsValid = await _verificationService.IsCaptchaValid(CaptchaResponse);
 
             if (requestIsValid==true)
             {
-                if (passport == null)
+                if (Input.Passport == null)
                 {
-                    ResultList = _searchService.GetResultWithOutPassport(firstName, lastName);
+                    ResultList = _searchService.GetResultWithOutPassport(Input.FirstName, Input.LastName);
                 }
                 else
                 {
-                    ResultList = _searchService.GetResultWithPassport(firstName, lastName, passport);
+                    ResultList = _searchService.GetResultWithPassport(Input.FirstName, Input.LastName, Input.Passport);
                 }
             }
 

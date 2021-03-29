@@ -38,7 +38,7 @@ namespace PecMemberSearch
 
             // Captcha part
             services.Configure<CaptchaSettings>(Configuration.GetSection("CaptchaSettings"));
-            services.AddTransient<CaptchaVerificationService>();
+            services.AddTransient<ICaptchaVerificationService,CaptchaVerificationService>();
 
             services.AddTransient<ISearchService, SearchService>();
 
