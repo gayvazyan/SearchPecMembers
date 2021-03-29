@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using PecMemberSearch.Services;
+using PecMemberSearch.Services.CaptchaVerification;
 using PecMemberSearch.ViewModels;
+using static PecMemberSearch.Services.CaptchaVerification.CaptchaVerificationService;
 
 namespace PecMemberSearch.Pages
 {
@@ -11,13 +15,28 @@ namespace PecMemberSearch.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly ISearchService _searchService;
+        private readonly CaptchaVerificationService _verificationService;
+        private CaptchaSettings _captchaSettings;
 
-        public IndexModel(ILogger<IndexModel> logger, ISearchService searchService)
+        public IndexModel(ILogger<IndexModel> logger, 
+                          ISearchService searchService,
+                          CaptchaVerificationService verificationService,
+                          IOptions<CaptchaSettings> captchaSettings)
         {
             _logger = logger;
             _searchService = searchService;
+            _verificationService = verificationService;
+            _captchaSettings = captchaSettings.Value;
             Input = new InputModel();
         }
+
+        public string CaptchaClientKey { get; set; }
+        [BindProperty(Name = "g-recaptcha-response")]
+        public string CaptchaResponse { get; set; }
+
+        [BindProperty]
+
+        public string ErrorMassage { get; set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -34,25 +53,46 @@ namespace PecMemberSearch.Pages
           
         }
 
-        public void OnGet()
+        public void PrepareData()
         {
+            CaptchaClientKey = _captchaSettings.SiteKey;
            
         }
-        public void OnPost()
+
+        public void OnGet()
+        {
+            ErrorMassage = string.Empty;
+            PrepareData();
+        }
+        public async Task<IActionResult> OnPostAsync()
         {
             var firstName = Input.FirstName;
             var lastName = Input.LastName;
             var passport = Input.Passport;
 
-            if (passport == null)
+
+
+            var requestIsValid = await _verificationService.IsCaptchaValid(CaptchaResponse);
+
+            if (requestIsValid==true)
             {
-                ResultList = _searchService.GetResultWithOutPassport(firstName, lastName);
-            }
-            else
-            {
-                ResultList = _searchService.GetResultWithPassport(firstName, lastName, passport);
+                if (passport == null)
+                {
+                    ResultList = _searchService.GetResultWithOutPassport(firstName, lastName);
+                }
+                else
+                {
+                    ResultList = _searchService.GetResultWithPassport(firstName, lastName, passport);
+                }
             }
 
+            else
+            {
+                ErrorMassage = "Նշեք Ես Ռոբոտ չեմ դաշտը։";
+                PrepareData();
+            }
+
+            return Page();
         }
     }
 }

@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PecMemberSearch.ModelDb;
 using PecMemberSearch.Services;
+using PecMemberSearch.Services.CaptchaVerification;
+using static PecMemberSearch.Services.CaptchaVerification.CaptchaVerificationService;
 
 namespace PecMemberSearch
 {
@@ -33,6 +35,10 @@ namespace PecMemberSearch
 
             services.AddDbContext<NewSearchContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("newcecsystemsDatabase")));
+
+            // Captcha part
+            services.Configure<CaptchaSettings>(Configuration.GetSection("CaptchaSettings"));
+            services.AddTransient<CaptchaVerificationService>();
 
             services.AddTransient<ISearchService, SearchService>();
 

@@ -30,6 +30,12 @@
         <div class="card">
             <div class="card-body row">
                 <div class="m-3 p-3 w-100">
+                     <div class="row margin-top-20">
+                        <div class="col-12">
+                            <h6 style="color:green">*Անուն և Ազգանուն դաշտերը ենթակա են պարտադիր լրացման </h6>
+                            <h6 style="color:red">*Որոնման տվյալներում "և" տառի առկայության դեպքում լրացնել "եվ" տառերի համակցությունը: </h6>
+                        </div>
+                    </div>
                     <div class="row margin-top-20">
                         <div class="col-3">
                             @*<label class="text-info">Անուն</label>*@
@@ -46,25 +52,37 @@
                             <input class="form-control" type="text" asp-for="Input.Passport" placeholder="ա.հ.փ.">
                             <span asp-validation-for="Input.Passport" class="text-danger"></span>
                         </div>
-                        <div class="col-3">
+                       
+                    </div>
+               
+                      <div class="row margin-top-20" style="padding-top:2px;">
+                         <div class="col-3">
+                              <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                         <div class="col-3">
                             <a class="btn btn-danger text-white" onclick="Reset()">Մաքրել</a>
                             <button class="btn btn-primary text-white"><i class="cil-sync"></i> Որոնել</button>
                         </div>
                     </div>
-                    <br />
-                    <div class="row margin-top-20">
-                        <div class="col-12">
-                            <h6 style="color:green">*Անուն և Ազգանուն դաշտերը ենթակա են պարտադիր լրացման </h6>
-                            <h6 style="color:red">*Որոնման տվյալներում "և" տառի առկայության դեպքում լրացնել "եվ" տառերի համակցությունը: </h6>
+                  <br />
+                   @if(!String.IsNullOrEmpty(Model.ErrorMassage))
+                {
+                    <div class="row margin-top-20" style="padding-top:2px;">
+                         <div class="col-3">
+                              <h5 style="color:red">@Model.ErrorMassage</h5>
                         </div>
                     </div>
-
-
+                }
+                   
+                               
                 </div>
             </div>
         </div>
-
-        @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
+        @if(!String.IsNullOrEmpty(Model.ErrorMassage))
+    {
+         @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
         {
             @if (Model.ResultList != null)
             {
@@ -160,15 +178,9 @@
                 </div>
             }
         }
+    }
 
-
-
-
-
-
-
-
-        @section scripts{
+             @section scripts{
             <script>
                 function Reset() {
                     $("#Input_FirstName").val(null);
@@ -177,8 +189,17 @@
                     $("form").submit();
                 }
             </script>
+
+          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script>
+            function onSubmit(token) {
+                document.getElementById("form").submit();
+            }
+        </script>
         }
     </form>
+
+
 
 
 
