@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -27,13 +29,16 @@ namespace PecMemberSearch.Pages
             Input = new InputModel();
         }
 
+        [BindProperty]
         public string CaptchaClientKey { get; set; }
         [BindProperty(Name = "g-recaptcha-response")]
         public string CaptchaResponse { get; set; }
 
         [BindProperty]
-
         public string ErrorMassage { get; set; }
+
+        [BindProperty]
+        public bool ShowResult { get; set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -44,7 +49,10 @@ namespace PecMemberSearch.Pages
         
         public class InputModel
         {
+            [Required(ErrorMessage = "Անունը պարտադիր է")]
             public string FirstName { get; set; }
+
+            [Required(ErrorMessage = "Ազգանունը պարտադիր է")]
             public string LastName { get; set; }
             public string Passport { get; set; }
           
@@ -63,26 +71,45 @@ namespace PecMemberSearch.Pages
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var requestIsValid = await _verificationService.IsCaptchaValid(CaptchaResponse);
 
-            if (requestIsValid==true)
+            if (ModelState.IsValid)
             {
-                if (Input.Passport == null)
+                try
                 {
-                    ResultList = _searchService.GetResultWithOutPassport(Input.FirstName, Input.LastName);
+                    var requestIsValid = await _verificationService.IsCaptchaValid(CaptchaResponse);
+
+                    if (requestIsValid==true)
+                    {
+                        if (Input.Passport == null)
+                        {
+                            ResultList = _searchService.GetResultWithOutPassport(Input.FirstName, Input.LastName);
+                        }
+                        else
+                        {
+                            ResultList = _searchService.GetResultWithPassport(Input.FirstName, Input.LastName, Input.Passport);
+                        }
+                        ShowResult = true;
+                    }
+                    else
+                    {
+                        ErrorMassage = "Ես ռոբոտ չեմ դաշտը պարտադիր է";
+                        PrepareData();
+                    }
+                  
                 }
-                else
+                catch (Exception ex)
                 {
-                    ResultList = _searchService.GetResultWithPassport(Input.FirstName, Input.LastName, Input.Passport);
+                    ErrorMassage = ex.Message;
+                    PrepareData();
+
                 }
             }
-
             else
             {
-                ErrorMassage = "Նշեք Ես Ռոբոտ չեմ դաշտը։";
                 PrepareData();
             }
 
+            PrepareData();
             return Page();
         }
     }

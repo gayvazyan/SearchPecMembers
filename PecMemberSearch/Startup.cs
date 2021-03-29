@@ -36,9 +36,12 @@ namespace PecMemberSearch
             services.AddDbContext<NewSearchContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("newcecsystemsDatabase")));
 
-            // Captcha part
+
+            //Google Captcha part
             services.Configure<CaptchaSettings>(Configuration.GetSection("CaptchaSettings"));
             services.AddTransient<ICaptchaVerificationService,CaptchaVerificationService>();
+
+
 
             services.AddTransient<ISearchService, SearchService>();
 
