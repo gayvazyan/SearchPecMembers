@@ -108,7 +108,7 @@ namespace PecMemberSearch.Pages
                             string resultFilePath = Path.Combine(resultDir, resultFileName);
 
                             StringBuilder csvRegisterLog = new StringBuilder();
-                            string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + CommonFunctions.GetIPAddress() + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
+                            string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + CommonFunctions.GetIp() + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
                                           ", Passport=" + Input.Passport;
                             csvRegisterLog.Append(row);
                             csvRegisterLog.Append(Environment.NewLine);
