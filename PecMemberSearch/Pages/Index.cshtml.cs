@@ -97,23 +97,23 @@ namespace PecMemberSearch.Pages
                         }
                         ShowResult = true;
 
-                        //if (Input != null)
-                        //{
-                        //    var resultDir = Path.Combine(_env.WebRootPath, "logs");
-                        //    if (!Directory.Exists(resultDir))
-                        //    {
-                        //        DirectoryInfo di = Directory.CreateDirectory(resultDir);
-                        //    }
-                        //    var resultFileName = DateTime.Now.ToString("MM.yyyy") + ".csv";
-                        //    string resultFilePath = Path.Combine(resultDir, resultFileName);
+                        if (Input != null)
+                        {
+                            var resultDir = Path.Combine(_env.WebRootPath, "logs");
+                            if (!Directory.Exists(resultDir))
+                            {
+                                DirectoryInfo di = Directory.CreateDirectory(resultDir);
+                            }
+                            var resultFileName = DateTime.Now.ToString("MM.yyyy") + ".csv";
+                            string resultFilePath = Path.Combine(resultDir, resultFileName);
 
-                        //    StringBuilder csvRegisterLog = new StringBuilder();
-                        //    string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + CommonFunctions.GetIPAddress() + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
-                        //                  ", Passport=" + Input.Passport;
-                        //    csvRegisterLog.Append(row);
-                        //    csvRegisterLog.Append(Environment.NewLine);
-                        //    System.IO.File.AppendAllText(resultFilePath, csvRegisterLog.ToString());
-                        //}
+                            StringBuilder csvRegisterLog = new StringBuilder();
+                            string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + CommonFunctions.GetIPAddress() + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
+                                          ", Passport=" + Input.Passport;
+                            csvRegisterLog.Append(row);
+                            csvRegisterLog.Append(Environment.NewLine);
+                            System.IO.File.AppendAllText(resultFilePath, csvRegisterLog.ToString());
+                        }
 
                     }
                     else
