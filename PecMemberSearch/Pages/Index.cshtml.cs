@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using PecMemberSearch.Common;
 using PecMemberSearch.Services;
 using PecMemberSearch.Services.CaptchaVerification;
 using PecMemberSearch.ViewModels;
@@ -18,14 +22,17 @@ namespace PecMemberSearch.Pages
         private readonly ISearchService _searchService;
         private readonly ICaptchaVerificationService _verificationService;
         private CaptchaSettings _captchaSettings;
+        private readonly IWebHostEnvironment _env;
 
         public IndexModel(ISearchService searchService,
                           ICaptchaVerificationService verificationService,
-                          IOptions<CaptchaSettings> captchaSettings)
+                          IOptions<CaptchaSettings> captchaSettings,
+                          IWebHostEnvironment env)
         {
             _searchService = searchService;
             _verificationService = verificationService;
             _captchaSettings = captchaSettings.Value;
+            _env = env;
             Input = new InputModel();
         }
 
@@ -89,6 +96,25 @@ namespace PecMemberSearch.Pages
                             ResultList = _searchService.GetResultWithPassport(Input.FirstName, Input.LastName, Input.Passport);
                         }
                         ShowResult = true;
+
+                        if (Input != null)
+                        {
+                            var resultDir = Path.Combine(_env.WebRootPath, "logs");
+                            if (!Directory.Exists(resultDir))
+                            {
+                                DirectoryInfo di = Directory.CreateDirectory(resultDir);
+                            }
+                            var resultFileName = DateTime.Now.ToString("MM.yyyy") + ".csv";
+                            string resultFilePath = Path.Combine(resultDir, resultFileName);
+
+                            StringBuilder csvRegisterLog = new StringBuilder();
+                            string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + CommonFunctions.GetIPAddress() + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
+                                          ", Passport=" + Input.Passport;
+                            csvRegisterLog.Append(row);
+                            csvRegisterLog.Append(Environment.NewLine);
+                            System.IO.File.AppendAllText(resultFilePath, csvRegisterLog.ToString());
+                        }
+
                     }
                     else
                     {
