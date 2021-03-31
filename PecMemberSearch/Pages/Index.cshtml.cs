@@ -24,18 +24,15 @@ namespace PecMemberSearch.Pages
         private readonly ICaptchaVerificationService _verificationService;
         private CaptchaSettings _captchaSettings;
         private readonly IWebHostEnvironment _env;
-        private IHttpContextAccessor _accessor;
 
         public IndexModel(ISearchService searchService,
                           ICaptchaVerificationService verificationService,
                           IOptions<CaptchaSettings> captchaSettings,
-                          IWebHostEnvironment env,
-                          IHttpContextAccessor accessor)
+                          IWebHostEnvironment env)
         {
             _searchService = searchService;
             _verificationService = verificationService;
             _captchaSettings = captchaSettings.Value;
-            _accessor = accessor;
             _env = env;
             Input = new InputModel();
         }
@@ -72,12 +69,10 @@ namespace PecMemberSearch.Pages
         public void PrepareData()
         {
             CaptchaClientKey = _captchaSettings.SiteKey;
-           
         }
 
         public void OnGet()
         {
-           
             ErrorMassage = string.Empty;
             PrepareData();
         }
@@ -104,7 +99,7 @@ namespace PecMemberSearch.Pages
 
                         if (Input != null)
                         {
-                            var ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+                            var ip = HttpContext.Connection.RemoteIpAddress;
                             var resultDir = Path.Combine(_env.WebRootPath, "logs");
                             if (!Directory.Exists(resultDir))
                             {
