@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -23,15 +24,18 @@ namespace PecMemberSearch.Pages
         private readonly ICaptchaVerificationService _verificationService;
         private CaptchaSettings _captchaSettings;
         private readonly IWebHostEnvironment _env;
+        private IHttpContextAccessor _accessor;
 
         public IndexModel(ISearchService searchService,
                           ICaptchaVerificationService verificationService,
                           IOptions<CaptchaSettings> captchaSettings,
-                          IWebHostEnvironment env)
+                          IWebHostEnvironment env,
+                          IHttpContextAccessor accessor)
         {
             _searchService = searchService;
             _verificationService = verificationService;
             _captchaSettings = captchaSettings.Value;
+            _accessor = accessor;
             _env = env;
             Input = new InputModel();
         }
@@ -73,6 +77,7 @@ namespace PecMemberSearch.Pages
 
         public void OnGet()
         {
+           
             ErrorMassage = string.Empty;
             PrepareData();
         }
@@ -99,6 +104,7 @@ namespace PecMemberSearch.Pages
 
                         if (Input != null)
                         {
+                            var ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
                             var resultDir = Path.Combine(_env.WebRootPath, "logs");
                             if (!Directory.Exists(resultDir))
                             {
@@ -108,7 +114,7 @@ namespace PecMemberSearch.Pages
                             string resultFilePath = Path.Combine(resultDir, resultFileName);
 
                             StringBuilder csvRegisterLog = new StringBuilder();
-                            string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + CommonFunctions.GetIp() + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
+                            string row = "SearchDate=" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + ", IP=" + ip + ", FirstName=" + Input.FirstName + ", LastName=" + Input.LastName +
                                           ", Passport=" + Input.Passport;
                             csvRegisterLog.Append(row);
                             csvRegisterLog.Append(Environment.NewLine);

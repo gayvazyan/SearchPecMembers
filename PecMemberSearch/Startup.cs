@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,9 @@ namespace PecMemberSearch
             //Google Captcha part
             services.Configure<CaptchaSettings>(Configuration.GetSection("CaptchaSettings"));
             services.AddTransient<ICaptchaVerificationService,CaptchaVerificationService>();
+
+            services.AddHttpContextAccessor();
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
 
 

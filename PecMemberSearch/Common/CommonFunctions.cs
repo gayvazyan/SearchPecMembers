@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,11 +18,5 @@ namespace PecMemberSearch.Common
             return address[1].ToString();
         }
 
-        public static string GetIp()
-        {
-            IPHostEntry iPHostEntry = Dns.GetHostEntry(Dns.GetHostName());
-            string ipAdress = Convert.ToString(iPHostEntry.AddressList.FirstOrDefault(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork));
-            return ipAdress;
-        }
     }
 }
