@@ -7,17 +7,6 @@
 <form method="post" id="form">
 
 
-    @*<div class="card-header">
-            <h5 style="color:red">Հարգելի դիմումատու`</h5> <h5> Դուք կարող եք հետևել, արդյոք ընդգրկված եք 2019թ. հոկտեմբեր-նոյեմբեր ամիսներին
-            Կենտրոնական ընտրական հանձնաժողովի կողմից կազմակերպված ընտրությունների անցկացման մասնագիտական դասընթացներին:</h5>
-
-            <br>
-
-            <h5>  Դասընթացների ժամանակացույցը հայտնի լինելուց հետո կարող եք նաև տեղեկանալ դասընթացի ացկացման վայրի, օրվա և ժամի մասին:</h5>
-            <br>
-        </div>*@
-
-
     <div class="card-header">
         <h5>Ընտրությունների անցկացման մասնագիտական դասընթացներ</h5>
         <div class="card-header-actions">
@@ -32,27 +21,23 @@
             <div class="m-3 p-3 w-100">
                 <div class="row margin-top-20">
                     <div class="col-12">
-                        <h6 style="color:green">*Անուն և Ազգանուն դաշտերը ենթակա են պարտադիր լրացման </h6>
-                        <h6 style="color:red">*Որոնման տվյալներում "և" տառի առկայության դեպքում լրացնել "եվ" տառերի համակցությունը: </h6>
+                        <h6 style="color:green">*անուն և ազգանուն դաշտերը ենթակա են պարտադիր լրացման </h6>
+                        <h6 style="color:red">*որոնման տվյալներում "և" տառի առկայության դեպքում լրացնել "եվ" տառերի համակցությունը: </h6>
                     </div>
                 </div>
                 <div class="row margin-top-20">
                     <div class="col-4">
-                        @*<label class="text-info">Անուն</label>*@
                         <input class="form-control" type="text" asp-for="Input.FirstName" placeholder="անուն">
                         <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                     </div>
                     <div class="col-4">
-                        @*<label class="text-info" asp-for="Input.LastName"></label>*@
                         <input class="form-control" type="text" asp-for="Input.LastName" placeholder="ազգանուն">
                         <span asp-validation-for="Input.LastName" class="text-danger"></span>
                     </div>
                     <div class="col-4">
-                        @*<label class="text-info" asp-for="Input.Passport"></label>*@
-                        <input class="form-control" type="text" asp-for="Input.Passport" placeholder="ազգանուն/ID">
+                        <input class="form-control" type="text" asp-for="Input.Passport" placeholder="անձնագիր/ID">
                         <span asp-validation-for="Input.Passport" class="text-danger"></span>
                     </div>
-
                 </div>
 
                 <div class="row margin-top-20" style="padding-top:20px;">
@@ -60,33 +45,32 @@
                         <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
                     </div>
                 </div>
-                @if (!String.IsNullOrEmpty(Model.ErrorMassage) || (Model.ShowResult==true))
-                    {
-                <span class="text-danger">@Model.ErrorMassage</span>
-                    }
+                @if (!String.IsNullOrEmpty(Model.ErrorMassage) || (Model.ShowResult == true))
+                {
+                    <span class="text-danger">@Model.ErrorMassage</span>
+                }
                 <div class="row margin-top-20" style="padding-top:20px;">
-                    <div class="col-4">
+                    <div class="col-4" style="min-width:200px" >
                         <a class="btn btn-danger text-white" onclick="Reset()">Մաքրել</a>
                         <button class="btn btn-primary text-white"><i class="cil-sync"></i> Որոնել</button>
                     </div>
                 </div>
                 <br />
-
-
-
             </div>
         </div>
     </div>
+
+
     @if(Model.ShowResult==true)
     {
     @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
         {
     @if (Model.ResultList != null)
             {
-    <div class="card">
-        <div class="card-header">
-            <table class="table">
-                <thead>
+              <div class="card">
+                  <div class="card-header">
+                      <table class="table">
+                  <thead>
                     <tr>
                         <th>
                             <center style="color:dodgerblue"> Անուն </center>
@@ -111,7 +95,7 @@
 
                     @if (Model.ResultList.Count == 0)
                                 {
-                    <h5 style="color:red">*Որոնման արդյունքում տվյալներ չգտնվեց</h5>
+                                  <h5 style="color:red">*Որոնման արդյունքում տվյալներ չգտնվեց</h5>
                                 }
                     @if (Model.ResultList.Count == 1)
                                 {
@@ -187,8 +171,6 @@
                 $("form").submit();
             }
         </script>
-
-        @*<script src="https://www.google.com/recaptcha/api.js?hl=hy" async defer></script>*@
     }
 </form>
 
