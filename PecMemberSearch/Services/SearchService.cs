@@ -100,9 +100,9 @@ namespace PecMemberSearch.Services
 
             foreach (var item in searchNewApplicant)
             {
-                var searchCommunity = _content.Community.FirstOrDefault(p => p.CommunityId == item.TrainingCenterCommunityId);
-                var searchRegion = _content.Region.FirstOrDefault(p => p.RegionId == searchCommunity.RegionId);
-                var searchData = _content.TrainingCourse.FirstOrDefault(p => p.TrainingCourseCode == item.TrainingCourseCode);
+                var searchCommunity = _newContent.Community.FirstOrDefault(p => p.CommunityId == item.TrainingCenterCommunityId);
+                var searchRegion = _newContent.Region.FirstOrDefault(p => p.RegionId == searchCommunity.RegionId);
+                var searchData = _newContent.TrainingCourse.FirstOrDefault(p => p.TrainingCourseCode == item.TrainingCourseCode);
                 DateTime? dataValide = item.CertificateIssue;
                 string DataValide = null;
                 if (dataValide != null)
@@ -117,7 +117,7 @@ namespace PecMemberSearch.Services
                 string dataTraining;
                 if (searchData != null)
                 {
-                    var serachTrainingRoom = _content.TrainingCenter.FirstOrDefault(p => p.TrainingCenterId == searchData.TrainingCenterId);
+                    var serachTrainingRoom = _newContent.TrainingCenter.FirstOrDefault(p => p.TrainingCenterId == searchData.TrainingCenterId);
                     dataTraining = (searchData.DateTime).ToString("dd.MM.yyyy HH:mm");
                     trainingRoom = serachTrainingRoom.Address;
                 }
@@ -233,9 +233,9 @@ namespace PecMemberSearch.Services
             foreach (var item in searchNewApplicant)
             {
 
-                var searchCommunity = _content.Community.FirstOrDefault(p => p.CommunityId == item.TrainingCenterCommunityId);
-                var searchRegion = _content.Region.FirstOrDefault(p => p.RegionId == searchCommunity.RegionId);
-                var searchData = _content.TrainingCourse.FirstOrDefault(p => p.TrainingCourseCode == item.TrainingCourseCode);
+                var searchCommunity = _newContent.Community.FirstOrDefault(p => p.CommunityId == item.TrainingCenterCommunityId);
+                var searchRegion = _newContent.Region.FirstOrDefault(p => p.RegionId == searchCommunity.RegionId);
+                var searchData = _newContent.TrainingCourse.FirstOrDefault(p => p.TrainingCourseCode == item.TrainingCourseCode);
                 DateTime? dataValide = item.CertificateIssue;
                 string DataValide = null;
                 if (dataValide != null)
@@ -250,7 +250,7 @@ namespace PecMemberSearch.Services
                 string dataTraining;
                 if (searchData != null)
                 {
-                    var serachTrainingRoom = _content.TrainingCenter.FirstOrDefault(p => p.TrainingCenterId == searchData.TrainingCenterId);
+                    var serachTrainingRoom = _newContent.TrainingCenter.FirstOrDefault(p => p.TrainingCenterId == searchData.TrainingCenterId);
                     dataTraining = (searchData.DateTime).ToString("dd.MM.yyyy HH:mm");
                     trainingRoom = serachTrainingRoom.Address;
                 }
