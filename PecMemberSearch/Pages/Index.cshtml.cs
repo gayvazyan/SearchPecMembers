@@ -57,10 +57,10 @@ namespace PecMemberSearch.Pages
         
         public class InputModel
         {
-            [Required(ErrorMessage = "Անունը պարտադիր է")]
+            [Required(ErrorMessage = "անունը պարտադիր է")]
             public string FirstName { get; set; }
 
-            [Required(ErrorMessage = "Ազգանունը պարտադիր է")]
+            [Required(ErrorMessage = "ազգանունը պարտադիր է")]
             public string LastName { get; set; }
             public string Passport { get; set; }
           

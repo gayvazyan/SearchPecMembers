@@ -50,7 +50,7 @@
                     <span class="text-danger">@Model.ErrorMassage</span>
                 }
                 <div class="row margin-top-20" style="padding-top:20px;">
-                    <div class="col-4" style="min-width:200px" >
+                    <div class="col-4" style="min-width:200px">
                         <a class="btn btn-danger text-white" onclick="Reset()">Մաքրել</a>
                         <button class="btn btn-primary text-white"><i class="cil-sync"></i> Որոնել</button>
                     </div>
@@ -61,102 +61,90 @@
     </div>
 
 
-    @if(Model.ShowResult==true)
+    @if (Model.ShowResult == true)
     {
-    @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
+        @if (Model.Input.FirstName != null || Model.Input.LastName != null || Model.Input.Passport != null)
         {
-    @if (Model.ResultList != null)
+            @if (Model.ResultList != null)
             {
-              <div class="card">
-                  <div class="card-header">
-                      <table class="table">
-                  <thead>
-                    <tr>
-                        <th>
-                            <center style="color:dodgerblue"> Անուն </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue">  Հասցե </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Դասընթաց </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Միավոր </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Վկայական </center>
-                        </th>
-                        <th>
-                            <center style="color:dodgerblue"> Ուժի մեջ է մինչև </center>
-                        </th>
-                    </tr>
+                <div class="card">
+                    <div class="card-body row">
+                        <div class="m-3 p-3 w-100">
+                            <div class="row margin-top-20">
+                                <div class="col-12">
+
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <center style="color:dodgerblue"> Անուն </center>
+                                                </th>
+                                                <th>
+                                                    <center style="color:dodgerblue">  Հասցե </center>
+                                                </th>
+                                                <th>
+                                                    <center style="color:dodgerblue"> Դասընթաց </center>
+                                                </th>
+                                                <th>
+                                                    <center style="color:dodgerblue"> Միավոր </center>
+                                                </th>
+                                                <th>
+                                                    <center style="color:dodgerblue"> Վկայական </center>
+                                                </th>
+                                                <th>
+                                                    <center style="color:dodgerblue"> Ուժի մեջ է մինչև </center>
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        @if (Model.ResultList.Count == 0)
+                                        {
+                                            <h5 style="color:red">*Որոնման արդյունքում տվյալներ չգտնվեց</h5>
+                                        }
+                                        @if (Model.ResultList.Count == 1)
+                                        {
+                                            <tbody>
+                                                @foreach (var item in Model.ResultList)
+                                                {
+
+                                                    <tr>
+                                                        <td>@item.FullName</td>
+                                                        <td>@item.Address</td>
+                                                        <td>@item.TrainingCenter</td>
+                                                        <td>@item.Points</td>
+                                                        <td>@item.CertificateNumber</td>
+                                                        <td>@item.Date</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        }
 
 
-                    @if (Model.ResultList.Count == 0)
-                                {
-                                  <h5 style="color:red">*Որոնման արդյունքում տվյալներ չգտնվեց</h5>
-                                }
-                    @if (Model.ResultList.Count == 1)
-                                {
-                    @foreach (var item in Model.ResultList)
-                                    {
+                                        @if (Model.ResultList.Count > 1)
+                                        {
+                                            <tbody>
+                                                <h6 style="color:orange">*Որոնման արդյունքում գտնվեց մեկից ավելի տվյալ,  ստույգ տեղեկատվություն ստանալու համար խնդրհեմ ներմուծեք նաև անձը հաստատող փաստաթղթի համարը </h6>
 
-                    <tr>
-                        <td>
-                            <center>  @Html.DisplayFor(modelItem => item.FullName) </center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.Address)</center>
-                        </td>
+                                                @foreach (var item in Model.ResultList)
+                                                {
+                                                    <tr>
+                                                        <td>@item.FullName</td>
+                                                        <td>@item.Address</td>
+                                                        <td>@item.TrainingCenter</td>
+                                                        <td>@item.Points</td>
+                                                        <td>@item.CertificateNumber</td>
+                                                        <td>@item.Date</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        }
 
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.TrainingCenter)</center>
-                        </td>
-                        <td>
-                            <center>   @Html.DisplayFor(modelItem => item.Points)</center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.CertificateNumber)</center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.Date)</center>
-                        </td>
-                    </tr>
-                                    }
-                                }
-                    @if (Model.ResultList.Count > 1)
-                                {
-                    <h6 style="color:orange">*Որոնման արդյունքում գտնվեց մեկից ավելի տվյալ,  ստույգ տեղեկատվություն ստանալու համար խնդրհեմ ներմուծեք նաև անձը հաստատող փաստաթղթի համարը </h6>
-
-                    @foreach (var item in Model.ResultList)
-                                    {
-                    <tr>
-                        <td>
-                            <center>  @Html.DisplayFor(modelItem => item.FullName) </center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.Address)</center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.TrainingCenter)</center>
-                        </td>
-                        <td>
-                            <center>   @Html.DisplayFor(modelItem => item.Points)</center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.CertificateNumber)</center>
-                        </td>
-                        <td>
-                            <center>    @Html.DisplayFor(modelItem => item.Date)</center>
-                        </td>
-                    </tr>
-                                    }
-                                }
-                </thead>
-            </table>
-        </div>
-    </div>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         }
     }
