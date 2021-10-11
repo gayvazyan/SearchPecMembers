@@ -21,26 +21,26 @@ namespace PecMemberSearch.Pages
     public class IndexModel : PageModel
     {
         private readonly ISearchService _searchService;
-        private readonly ICaptchaVerificationService _verificationService;
-        private CaptchaSettings _captchaSettings;
+        //private readonly ICaptchaVerificationService _verificationService;
+        //private CaptchaSettings _captchaSettings;
         private readonly IWebHostEnvironment _env;
 
         public IndexModel(ISearchService searchService,
-                          ICaptchaVerificationService verificationService,
-                          IOptions<CaptchaSettings> captchaSettings,
+                          //ICaptchaVerificationService verificationService,
+                          //IOptions<CaptchaSettings> captchaSettings,
                           IWebHostEnvironment env)
         {
             _searchService = searchService;
-            _verificationService = verificationService;
-            _captchaSettings = captchaSettings.Value;
+            //_verificationService = verificationService;
+            //_captchaSettings = captchaSettings.Value;
             _env = env;
             Input = new InputModel();
         }
 
-        [BindProperty]
-        public string CaptchaClientKey { get; set; }
-        [BindProperty(Name = "g-recaptcha-response")]
-        public string CaptchaResponse { get; set; }
+        //[BindProperty]
+        //public string CaptchaClientKey { get; set; }
+        //[BindProperty(Name = "g-recaptcha-response")]
+        //public string CaptchaResponse { get; set; }
 
         [BindProperty]
         public string ErrorMassage { get; set; }
@@ -66,27 +66,27 @@ namespace PecMemberSearch.Pages
           
         }
 
-        public void PrepareData()
-        {
-            CaptchaClientKey = _captchaSettings.SiteKey;
-        }
+        //public void PrepareData()
+        //{
+        //    CaptchaClientKey = _captchaSettings.SiteKey;
+        //}
 
-        public void OnGet()
-        {
-            ErrorMassage = string.Empty;
-            PrepareData();
-        }
-        public async Task<IActionResult> OnPostAsync()
+        //public void OnGet()
+        //{
+        //    ErrorMassage = string.Empty;
+        //    PrepareData();
+        //}
+        public void OnPost()
         {
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var requestIsValid = await _verificationService.IsCaptchaValid(CaptchaResponse);
+                    //var requestIsValid = await _verificationService.IsCaptchaValid(CaptchaResponse);
 
-                    if (requestIsValid==true)
-                    {
+                    //if (requestIsValid==true)
+                    //{
                         if (Input.Passport == null)
                         {
                             ResultList = _searchService.GetResultWithOutPassport(Input.FirstName, Input.LastName);
@@ -116,28 +116,28 @@ namespace PecMemberSearch.Pages
                             System.IO.File.AppendAllText(resultFilePath, csvRegisterLog.ToString());
                         }
 
-                    }
-                    else
-                    {
-                        ErrorMassage = "Ես ռոբոտ չեմ դաշտը պարտադիր է";
-                        PrepareData();
-                    }
+                    //}
+                    //else
+                    //{
+                    //    ErrorMassage = "Ես ռոբոտ չեմ դաշտը պարտադիր է";
+                    //    PrepareData();
+                    //}
                   
                 }
                 catch (Exception ex)
                 {
                     ErrorMassage = ex.Message;
-                    PrepareData();
+                  //  PrepareData();
 
                 }
             }
-            else
-            {
-                PrepareData();
-            }
+            //else
+            //{
+            //   // PrepareData();
+            //}
 
-            PrepareData();
-            return Page();
+           // PrepareData();
+            //return Page();
         }
     }
 }
