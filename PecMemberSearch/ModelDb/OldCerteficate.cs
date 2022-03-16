@@ -25,5 +25,6 @@ namespace PecMemberSearch.ModelDb
         public string Certeficate { get; set; }
         [StringLength(250)]
         public string Date { get; set; }
+        public string Comment { get; set; }
     }
 }

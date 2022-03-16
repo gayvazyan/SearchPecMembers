@@ -50,9 +50,9 @@
 
                 @*<div class="row margin-top-20" style="padding-top:20px;">
                     <div class="col-4">
-                        <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
+                    <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey"></div>
                     </div>
-                </div>*@
+                    </div>*@
                 @if (!String.IsNullOrEmpty(Model.ErrorMassage) || (Model.ShowResult == true))
                 {
                     <span class="text-danger">@Model.ErrorMassage</span>
@@ -135,26 +135,59 @@
                                         }
                                         else
                                         {
-                                            <tr>
-                                                <td>
-                                                    <center> <span>@item.FullName</span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span>@item.Address</span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span>@item.TrainingCenter</span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span><b>@item.Points</b></span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span><b>@item.CertificateNumber</b></span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span><b>@item.Date</b></span></center>
-                                                </td>
-                                            </tr>
+                                            @if (!String.IsNullOrEmpty(item.Comment))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <center><span style="color:red"> @item.FullName</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red">@item.Address</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span style="color:red"> @item.TrainingCenter</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red"><s> <b>@item.Points</b></s></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red"><s><b> @item.CertificateNumber</b></s></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red"><s><b>@item.Date</b></s></span></center>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                   <td colspan="6">
+                                                        <center> <b>*Քաղաքացի <span style="color:red">@item.FullName</span> @item.Comment</b></center>
+                                                    </td>
+
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <center> <span>@item.FullName</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span>@item.Address</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span>@item.TrainingCenter</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span><b>@item.Points</b></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span><b>@item.CertificateNumber</b></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span><b>@item.Date</b></span></center>
+                                                    </td>
+                                                </tr>
+                                            }
+
                                         }
                                     }
                                 }
@@ -189,26 +222,62 @@
                                         }
                                         else
                                         {
-                                            <tr>
-                                                <td>
-                                                    <center> <span>@item.FullName</span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span>@item.Address</span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span>@item.TrainingCenter</span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span><b>@item.Points</b></span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span><b>@item.CertificateNumber</b></span></center>
-                                                </td>
-                                                <td>
-                                                    <center> <span><b>@item.Date</b></span></center>
-                                                </td>
-                                            </tr>
+
+                                            @if (!String.IsNullOrEmpty(item.Comment))
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <center><span style="color:red"> @item.FullName</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red">@item.Address</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span style="color:red"> @item.TrainingCenter</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red"><s> <b>@item.Points</b></s></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red"><s><b> @item.CertificateNumber</b></s></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center><span style="color:red"><s><b>@item.Date</b></s></span></center>
+                                                    </td>
+                                                </tr>
+                                               <tr>
+                                                   <td colspan="6">
+                                                        <center> <b>*Քաղաքացի <span style="color:red">@item.FullName</span> @item.Comment</b></center>
+                                                    </td>
+
+                                                </tr>
+                                            }
+
+                                            else
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <center> <span>@item.FullName</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span>@item.Address</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span>@item.TrainingCenter</span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span><b>@item.Points</b></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span><b>@item.CertificateNumber</b></span></center>
+                                                    </td>
+                                                    <td>
+                                                        <center> <span><b>@item.Date</b></span></center>
+                                                    </td>
+                                                </tr>
+                                            }
+
+
                                         }
                                     }
                                 }

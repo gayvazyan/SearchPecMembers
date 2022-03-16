@@ -13,5 +13,6 @@ namespace PecMemberSearch.ViewModels
         public int? Points { get; set; }
         public string CertificateNumber { get; set; }
         public string Date { get; set; }
+        public string Comment { get; set; }
     }
 }

@@ -23,7 +23,6 @@ namespace PecMemberSearch.Services
 
             List<Applicant> searchNewApplicant = _newContent.Applicant.Where(p => (p.ApplicantFirstName.Contains(firstName) && p.ApplicantLastName.Contains(lastName))).ToList();
 
-            List<OldCerteficate> searchFromAllCitizens = _content.OldCerteficate.Where(p => (p.LastName.Contains(lastName) && p.FirstName.Contains(firstName))).ToList();
 
 
             List<ApplicantsViewModel> searchApplicantsViewModel = new List<ApplicantsViewModel>();
@@ -74,28 +73,12 @@ namespace PecMemberSearch.Services
                     Points = item.Points,
                     CertificateNumber = (item.CertificateNumber).ToString(),
                     Date = DataValide,
+                    Comment = item.Comment
                 };
                 searchApplicantsViewModel.Add(applicantsViewModel);
 
             }
 
-            foreach (var item in searchFromAllCitizens)
-            {
-
-                ApplicantsViewModel applicantsViewModel = new ApplicantsViewModel
-                {
-
-                    //ApplicantId = item.ApplicantId,
-                    FullName = item.LastName + " " + item.FirstName + " " + item.MiddleName,
-                    Address = item.Address,
-                    TrainingCenter = item.TrainingCenter,
-                    Points = item.Points,
-                    CertificateNumber = item.Certeficate,
-                    Date = item.Date,
-                };
-                searchApplicantsViewModel.Add(applicantsViewModel);
-
-            }
 
 
             foreach (var item in searchNewApplicant)
@@ -144,6 +127,7 @@ namespace PecMemberSearch.Services
                     Points = item.Points,
                     CertificateNumber = (item.CertificateNumber).ToString(),
                     Date = DataValide,
+                    Comment = item.Comment
                 };
                 searchApplicantsViewModel.Add(applicantsViewModel);
 
@@ -158,8 +142,6 @@ namespace PecMemberSearch.Services
          
             List<Applicant> searchNewApplicant = _newContent.Applicant.Where(p => (p.ApplicantFirstName.Contains(firstName) && p.ApplicantLastName.Contains(lastName) && p.PassportNumber == passport)).ToList();
 
-            //List<OldCerteficate> searchFromAllCitizens = cont.OldCerteficate.Where(p => (p.FirstName == firstName && p.LastName == lastName && p.Passport == passport)).ToList();
-            List<OldCerteficate> searchFromAllCitizens = _content.OldCerteficate.Where(p => (p.LastName.Contains(lastName) && p.FirstName.Contains(firstName) && p.Passport == passport)).ToList();
 
             List<ApplicantsViewModel> searchApplicantsViewModel = new List<ApplicantsViewModel>();
 
@@ -207,29 +189,13 @@ namespace PecMemberSearch.Services
                     Points = item.Points,
                     CertificateNumber = (item.CertificateNumber).ToString(),
                     Date = DataValide,
+                    Comment = item.Comment
                 };
                 searchApplicantsViewModel.Add(applicantsViewModel);
 
             }
 
-            foreach (var item in searchFromAllCitizens)
-            {
-
-                ApplicantsViewModel applicantsViewModel = new ApplicantsViewModel
-                {
-
-                    //ApplicantId = item.ApplicantId,
-                    FullName = item.LastName + " " + item.FirstName + " " + item.MiddleName,
-                    Address = item.Address,
-                    TrainingCenter = item.TrainingCenter,
-                    Points = item.Points,
-                    CertificateNumber = item.Certeficate,
-                    Date = item.Date,
-                };
-                searchApplicantsViewModel.Add(applicantsViewModel);
-
-            }
-
+           
             foreach (var item in searchNewApplicant)
             {
 
@@ -274,6 +240,7 @@ namespace PecMemberSearch.Services
                     Points = item.Points,
                     CertificateNumber = (item.CertificateNumber).ToString(),
                     Date = DataValide,
+                    Comment = item.Comment
                 };
                 searchApplicantsViewModel.Add(applicantsViewModel);
 

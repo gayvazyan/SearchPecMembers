@@ -72,5 +72,7 @@ namespace PecMemberSearch.ModelDb
         public virtual Community TrainingCenterCommunity { get; set; }
         [InverseProperty("Participant")]
         public virtual ICollection<TrainingCoursePart> TrainingCoursePart { get; set; }
+
+        public string Comment { get; set; }
     }
 }
